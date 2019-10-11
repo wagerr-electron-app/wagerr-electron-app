@@ -1,1 +1,167 @@
-Readme
+name: wagerr-electron-app
+version: '1.1.0'
+
+summary:   wagerr, digital currency for decentralized betting
+description: |
+  Wagerr is a decentralized sportsbook that changes the way the world
+  bets on sports.
+  
+  - built for everyone.
+    Wagerr uses distributed
+    blockchain technology to execute betting contracts. It escrows
+    stakes, verifies results, and pays out winners. By eliminating
+    centralauthorities, Wagerr solves the most pernicious problems in
+    the industry. Reducing corruption and risk results in predictable
+    operation. You can bet on Wagerr.
+    - Free of All regulatory bodies
+    - Unrestricted global Access
+    - Support for all major sport leagues
+    - Truly Deflationary Chain
+  - Value Coupling
+    Nearly half of all fees are systematically destroyed — and
+    destroying fees diminishes coin supply. It’s a simple matter of
+  - supply and demand
+    Given steady demand, free markets tend to respond to a dwindling
+    supply with rising asset price. Holders of the asset will only
+    sell it for the highest price the market will bear. Watch the
+    video and check out the “economics” tab for more details on how
+    the Wagerr economy works.
+  
+  Homepage: https://wagerr.com/
+  Blockexplorer (main): https://explorer.wagerr.com/
+  Blockexplorer (testnet): https://explorer2.wagerr.com/
+  Github: https://github.com/wagerr/wagerr/
+  Wiki: https://github.com/wagerr/wagerr/wiki
+  
+  Coinmarketcap: https://coinmarketcap.com/currencies/wagerr/
+  
+  Chat with us:
+  - Discord (https://discord.gg/vvvvDbv)
+  
+  Social networks/forums:
+  - Telegram (https://t.me/wagerrcoin)
+  - twitter (https://twitter.com/wagerrx)
+  - reddit (https://www.reddit.com/r/Wagerr/)
+  - bitcointalk (https://bitcointalk.org/index.php?topic=1911583.0)
+  - facebook (https://www.facebook.com/wagerr/)
+
+confinement: strict
+grade: stable
+base: core18
+
+plugs:
+  config-wagerr:
+    interface: personal-files
+    write:
+    - $HOME/.config/wagerr-electron-app
+
+apps:
+  electron:
+    command: app/wagerr-electron-app 
+    #command: bin/snapcraft-preload $SNAP/app/wagerr-electron-app 
+    plugs: [network, network-bind,  unity7, desktop, desktop-legacy, wayland, x11, opengl, home, gsettings, screen-inhibit-control, audio-playback, config-wagerr, system-observe, browser-support, hardware-observe ]
+    desktop: wagerr-electron-app.desktop
+    environment:
+      QT_XKB_CONFIG_ROOT: $SNAP_USER_DATA:$SNAP/usr/share:$QT_XKB_CONFIG_ROOT
+      XDG_DATA_DIRS: $SNAP_USER_DATA:$SNAP/usr/share:$XDG_DATA_DIRS
+      LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/dri:$SNAP/usr/lib"
+
+layout:
+  /usr/lib/dri:
+    bind: $SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/dri
+
+parts:
+  wagerr-electron-app:
+    source: .
+    plugin: nil
+
+    override-build: |
+      if [ $SNAPCRAFT_ARCH_TRIPLET = "i386-linux-gnu" ]; then
+        HOST="i686-linux-gnu"
+      else
+        HOST="${SNAPCRAFT_ARCH_TRIPLET}"
+      fi
+      if [ $HOST = "i686-linux-gnu" ]; then
+        git clone https://github.com/wagerr/wagerr-electron-app 
+        cd wagerr-electron-app 
+        git checkout v1.1.0
+        # build using npm
+        #cp -pr ../../../wagerr-electron-app/src/app/bin .
+        cp -pr ../app/bin .
+        npm install
+        npm run package
+        mkdir $SNAPCRAFT_PART_INSTALL/app
+        cd release
+        APPIMAGE=$(find . -name *i386*.AppImage)
+        chmod a+x $APPIMAGE
+        $APPIMAGE --appimage-extract
+        mv ./squashfs-root/* $SNAPCRAFT_PART_INSTALL/app
+        find $SNAPCRAFT_PART_INSTALL/app/ -type d -exec chmod 755 {} \;
+        chmod 4755 $SNAPCRAFT_PART_INSTALL/app/chrome-sandbox
+        $SNAPCRAFT_PART_INSTALL/usr/lib/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders > $SNAPCRAFT_PART_INSTALL/usr/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache
+      elif [ $HOST = "x86_64-linux-gnu" ]; then
+        git clone https://github.com/wagerr/wagerr-electron-app 
+        cd wagerr-electron-app 
+        git checkout v1.1.0
+        # build using npm
+        #cp -pr ../../../wagerr-electron-app/src/app/bin .
+        cp -pr ../app/bin .
+        npm install
+        npm run package
+        mkdir $SNAPCRAFT_PART_INSTALL/app
+        cd release
+        APPIMAGE=$(find . -name *v86_64*.AppImage)
+        chmod a+x $APPIMAGE
+        $APPIMAGE --appimage-extract
+        mv ./squashfs-root/* $SNAPCRAFT_PART_INSTALL/app
+        find $SNAPCRAFT_PART_INSTALL/app/ -type d -exec chmod 755 {} \;
+        chmod 4755 $SNAPCRAFT_PART_INSTALL/app/chrome-sandbox
+        $SNAPCRAFT_PART_INSTALL/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders > $SNAPCRAFT_PART_INSTALL/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders.cache
+      fi
+
+    stage-packages:
+      - libxkbcommon0
+      - ttf-ubuntu-font-family
+      - dmz-cursor-theme
+      - light-themes
+      - shared-mime-info
+      - libqt5gui5
+      - libgdk-pixbuf2.0-0
+      - libqt5svg5 # for loading icon themes which are svg
+      - locales-all
+      - qtwayland5
+      - ca-certificates
+      - libnss3
+      - libgtk-3-0
+      - libxtst6
+      - libxss1
+      - libasound2
+      - libglu1-mesa
+
+    build-packages:
+      - curl
+      - wget
+      - gcc
+      - gcc-8
+      - g++
+      - g++-8
+      - git
+      - make
+      - autoconf
+      - automake
+      - cmake
+      - pkg-config
+      - libtool
+      - bsdmainutils
+      - binutils
+      - python3
+      - help2man
+      - doxygen
+      - npm
+      - libgtk-3-dev
+      - libgdk-pixbuf2.0-dev
+
+  desktop:
+    source: snap/local/desktop
+    plugin: dump
+

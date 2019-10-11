@@ -110,7 +110,7 @@ parts:
         npm run package
         mkdir $SNAPCRAFT_PART_INSTALL/app
         cd release
-        APPIMAGE=$(find . -name *v86_64*.AppImage)
+        APPIMAGE=$(find . -name *x86_64*.AppImage)
         chmod a+x $APPIMAGE
         $APPIMAGE --appimage-extract
         mv ./squashfs-root/* $SNAPCRAFT_PART_INSTALL/app

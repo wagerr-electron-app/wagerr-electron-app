@@ -80,24 +80,24 @@ parts:
       else
         HOST="${SNAPCRAFT_ARCH_TRIPLET}"
       fi
-      if [ $HOST = "i686-linux-gnu" ]; then
-        git clone https://github.com/wagerr/wagerr-electron-app 
-        cd wagerr-electron-app 
-        git checkout v1.1.0
-        # build using npm
-        cp -pr ../app/bin .
-        npm install
-        npm run package
-        mkdir $SNAPCRAFT_PART_INSTALL/app
-        cd release
-        APPIMAGE=$(find . -name *i386*.AppImage)
-        chmod a+x $APPIMAGE
-        $APPIMAGE --appimage-extract
-        mv ./squashfs-root/* $SNAPCRAFT_PART_INSTALL/app
-        find $SNAPCRAFT_PART_INSTALL/app/ -type d -exec chmod 755 {} \;
-        #chmod 4755 $SNAPCRAFT_PART_INSTALL/app/chrome-sandbox
-        $SNAPCRAFT_PART_INSTALL/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders > $SNAPCRAFT_PART_INSTALL/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/gdk-pixbuf-2.0/2.10.0/loaders.cache
-      elif [ $HOST = "x86_64-linux-gnu" ]; then
+      #if [ $HOST = "i686-linux-gnu" ]; then
+      #  git clone https://github.com/wagerr/wagerr-electron-app 
+      #  cd wagerr-electron-app 
+      #  git checkout v1.1.0
+      #  # build using npm
+      #  cp -pr ../app/bin .
+      #  npm install
+      #  npm run package
+      #  mkdir $SNAPCRAFT_PART_INSTALL/app
+      #  cd release
+      #  APPIMAGE=$(find . -name *i386*.AppImage)
+      #  chmod a+x $APPIMAGE
+      #  $APPIMAGE --appimage-extract
+      #  mv ./squashfs-root/* $SNAPCRAFT_PART_INSTALL/app
+      #  find $SNAPCRAFT_PART_INSTALL/app/ -type d -exec chmod 755 {} \;
+      #  #chmod 4755 $SNAPCRAFT_PART_INSTALL/app/chrome-sandbox
+      #  $SNAPCRAFT_PART_INSTALL/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders > $SNAPCRAFT_PART_INSTALL/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/gdk-pixbuf-2.0/2.10.0/loaders.cache
+      if [ $HOST = "x86_64-linux-gnu" ]; then
         git clone https://github.com/wagerr/wagerr-electron-app 
         cd wagerr-electron-app 
         git checkout v1.1.0

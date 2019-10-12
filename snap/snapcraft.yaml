@@ -49,11 +49,11 @@ confinement: strict
 grade: stable
 base: core18
 
-plugs:
-  config-wagerr:
-    interface: personal-files
-    write:
-    - $HOME/.config/wagerr-electron-app
+#plugs:
+#  config-wagerr:
+#    interface: personal-files
+#    write:
+#    - $HOME/.config/wagerr-electron-app
 
 apps:
   electron:

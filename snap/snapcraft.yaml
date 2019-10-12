@@ -58,7 +58,6 @@ plugs:
 apps:
   electron:
     command: app/wagerr-electron-app 
-    #command: bin/snapcraft-preload $SNAP/app/wagerr-electron-app 
     plugs: [network, network-bind,  unity7, desktop, desktop-legacy, wayland, x11, opengl, home, gsettings, screen-inhibit-control, audio-playback, config-wagerr, system-observe, browser-support, hardware-observe ]
     desktop: wagerr-electron-app.desktop
     environment:
@@ -98,7 +97,7 @@ parts:
         mv ./squashfs-root/* $SNAPCRAFT_PART_INSTALL/app
         find $SNAPCRAFT_PART_INSTALL/app/ -type d -exec chmod 755 {} \;
         chmod 4755 $SNAPCRAFT_PART_INSTALL/app/chrome-sandbox
-        $SNAPCRAFT_PART_INSTALL/usr/lib/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders > $SNAPCRAFT_PART_INSTALL/usr/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache
+        $SNAPCRAFT_PART_INSTALL/usr/lib/${HOST}/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders > $SNAPCRAFT_PART_INSTALL/usr/lib/${HOST}/gdk-pixbuf-2.0/2.10.0/loaders.cache
       elif [ $HOST = "x86_64-linux-gnu" ]; then
         git clone https://github.com/wagerr/wagerr-electron-app 
         cd wagerr-electron-app 
@@ -116,7 +115,7 @@ parts:
         mv ./squashfs-root/* $SNAPCRAFT_PART_INSTALL/app
         find $SNAPCRAFT_PART_INSTALL/app/ -type d -exec chmod 755 {} \;
         chmod 4755 $SNAPCRAFT_PART_INSTALL/app/chrome-sandbox
-        $SNAPCRAFT_PART_INSTALL/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders > $SNAPCRAFT_PART_INSTALL/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders.cache
+        $SNAPCRAFT_PART_INSTALL/usr/lib/${HOST}/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders > $SNAPCRAFT_PART_INSTALL/usr/lib/${HOST}/gdk-pixbuf-2.0/2.10.0/loaders.cache
       fi
 
     stage-packages:

@@ -83,7 +83,7 @@ parts:
       if [ $HOST = "x86_64-linux-gnu" ]; then
         git clone https://github.com/wagerr/wagerr-electron-app 
         cd wagerr-electron-app 
-        git checkout v1.1.0
+        git checkout v1.1.1
         # build using npm
         cp -pr ../app/bin .
         chmod 755 bin/wagerrd
@@ -102,7 +102,7 @@ parts:
       elif [ $HOST = "i686-linux-gnu" ]; then
         git clone https://github.com/wagerr/wagerr-electron-app 
         cd wagerr-electron-app 
-        git checkout v1.1.0
+        git checkout v1.1.1
         # build using npm
         cp -pr ../app/bin .
         chmod 755 bin/wagerrd
@@ -121,7 +121,7 @@ parts:
       elif [ $HOST = "arm-linux-gnu" ]; then
         git clone https://github.com/wagerr/wagerr-electron-app 
         cd wagerr-electron-app 
-        git checkout v1.1.0
+        git checkout v1.1.1
         # build using npm
         cp -pr ../app/bin .
         chmod 755 bin/wagerrd
@@ -140,7 +140,7 @@ parts:
       elif [ $HOST = "aarch64-linux-gnu" ]; then
         git clone https://github.com/wagerr/wagerr-electron-app 
         cd wagerr-electron-app 
-        git checkout v1.1.0
+        git checkout v1.1.1
         # build using npm
         cp -pr ../app/bin .
         chmod 755 bin/wagerrd

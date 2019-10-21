@@ -1,5 +1,5 @@
 name: wagerr-electron-app
-version: '1.1.0'
+version: '1.1.1'
 
 summary:   wagerr, digital currency for decentralized betting
 description: |
@@ -86,6 +86,8 @@ parts:
         git checkout v1.1.0
         # build using npm
         cp -pr ../app/bin .
+        chmod 755 bin/wagerrd
+        chmod 755 bin/wagerr-cli
         npm install
         npm run package
         mkdir $SNAPCRAFT_PART_INSTALL/app
@@ -103,6 +105,8 @@ parts:
         git checkout v1.1.0
         # build using npm
         cp -pr ../app/bin .
+        chmod 755 bin/wagerrd
+        chmod 755 bin/wagerr-cli
         npm install
         npm run package
         mkdir $SNAPCRAFT_PART_INSTALL/app
@@ -120,6 +124,8 @@ parts:
         git checkout v1.1.0
         # build using npm
         cp -pr ../app/bin .
+        chmod 755 bin/wagerrd
+        chmod 755 bin/wagerr-cli
         npm install
         npm run package
         mkdir $SNAPCRAFT_PART_INSTALL/app
@@ -137,6 +143,8 @@ parts:
         git checkout v1.1.0
         # build using npm
         cp -pr ../app/bin .
+        chmod 755 bin/wagerrd
+        chmod 755 bin/wagerr-cli
         npm install
         npm run package
         mkdir $SNAPCRAFT_PART_INSTALL/app

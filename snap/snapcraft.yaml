@@ -65,7 +65,7 @@ apps:
       XDG_DATA_DIRS: $SNAP_USER_DATA:$SNAP/usr/share:$XDG_DATA_DIRS
       LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/dri:$SNAP/usr/lib"
   electron-testnet:
-    command: wagerr-electron-app--testnet --no-sandbox
+    command: wagerr-electron-app --no-sandbox
     plugs: [network, network-bind,  unity7, desktop, desktop-legacy, wayland, x11, opengl, home, gsettings, screen-inhibit-control, audio-playback, system-observe, browser-support, hardware-observe ]
     desktop: wagerr-electron-app.desktop
     environment:
@@ -73,7 +73,7 @@ apps:
       XDG_DATA_DIRS: $SNAP_USER_DATA:$SNAP/usr/share:$XDG_DATA_DIRS
       LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/dri:$SNAP/usr/lib"
   electron-regtest:
-    command: wagerr-electron-app--regtest --no-sandbox
+    command: wagerr-electron-app --no-sandbox
     plugs: [network, network-bind,  unity7, desktop, desktop-legacy, wayland, x11, opengl, home, gsettings, screen-inhibit-control, audio-playback, system-observe, browser-support, hardware-observe ]
     desktop: wagerr-electron-app.desktop
     environment:
@@ -97,7 +97,7 @@ parts:
         HOST="${SNAPCRAFT_ARCH_TRIPLET}"
       fi
       if [ $HOST = "x86_64-linux-gnu" ]; then
-        git clone https://github.com/wagerr/wagerr-electron-app 
+        git clone https://github.com/wagerr/wagerr-electron-app.git 
         cd wagerr-electron-app 
         git checkout v1.1.1
         # build using npm
@@ -116,7 +116,7 @@ parts:
         #chmod 4755 $SNAPCRAFT_PART_INSTALL/app/chrome-sandbox
         $SNAPCRAFT_PART_INSTALL/usr/lib/${HOST}/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders > $SNAPCRAFT_PART_INSTALL/usr/lib/${HOST}/gdk-pixbuf-2.0/2.10.0/loaders.cache
       elif [ $HOST = "i686-linux-gnu" ]; then
-        git clone https://github.com/wagerr/wagerr-electron-app 
+        git clone https://github.com/wagerr/wagerr-electron-app.git
         cd wagerr-electron-app 
         git checkout v1.1.1
         # build using npm
@@ -136,7 +136,7 @@ parts:
         #chmod 4755 $SNAPCRAFT_PART_INSTALL/app/chrome-sandbox
         $SNAPCRAFT_PART_INSTALL/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders > $SNAPCRAFT_PART_INSTALL/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/gdk-pixbuf-2.0/2.10.0/loaders.cache
       elif [ $HOST = "arm-linux-gnu" ]; then
-        git clone https://github.com/wagerr/wagerr-electron-app 
+        git clone https://github.com/wagerr/wagerr-electron-app.git
         cd wagerr-electron-app 
         git checkout v1.1.1
         # build using npm
@@ -155,7 +155,7 @@ parts:
         #chmod 4755 $SNAPCRAFT_PART_INSTALL/app/chrome-sandbox
         $SNAPCRAFT_PART_INSTALL/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders > $SNAPCRAFT_PART_INSTALL/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/gdk-pixbuf-2.0/2.10.0/loaders.cache
       elif [ $HOST = "aarch64-linux-gnu" ]; then
-        git clone https://github.com/wagerr/wagerr-electron-app 
+        git clone https://github.com/wagerr/wagerr-electron-app.git
         cd wagerr-electron-app 
         git checkout v1.1.1
         # build using npm

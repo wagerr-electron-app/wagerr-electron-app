@@ -97,13 +97,16 @@ parts:
         HOST="${SNAPCRAFT_ARCH_TRIPLET}"
       fi
       if [ $HOST = "x86_64-linux-gnu" ]; then
+        wget https://github.com/wagerr/wagerr/releases/download/v3.0.1/wagerr-3.0.1-x86_64-linux-gnu.tar.gz
+        tar -xf wagerr-3.0.1-x86_64-linux-gnu.tar.gz
         git clone https://github.com/wagerr/wagerr-electron-app.git 
         cd wagerr-electron-app 
         git checkout v1.1.1
+        mkdir bin
+        cp -p ../wagerr-3.0.1/bin/wagerrd ./bin
+        cp -p ../wagerr-3.0.1/bin/wagerr-cli ./bin
+        rm -rf ../wagerr-3.0.1*
         # build using npm
-        cp -pr ../app/bin .
-        chmod 755 bin/wagerrd
-        chmod 755 bin/wagerr-cli
         npm install
         npm run package
         mkdir $SNAPCRAFT_PART_INSTALL/app
@@ -116,18 +119,20 @@ parts:
         #chmod 4755 $SNAPCRAFT_PART_INSTALL/app/chrome-sandbox
         $SNAPCRAFT_PART_INSTALL/usr/lib/${HOST}/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders > $SNAPCRAFT_PART_INSTALL/usr/lib/${HOST}/gdk-pixbuf-2.0/2.10.0/loaders.cache
       elif [ $HOST = "i686-linux-gnu" ]; then
+        wget https://github.com/wagerr/wagerr/releases/download/v3.0.1/wagerr-3.0.1-i686-pc-linux-gnu.tar.gz
+        tar -xf wagerr-3.0.1-i686-pc-linux-gnu.tar.gz
         git clone https://github.com/wagerr/wagerr-electron-app.git
         cd wagerr-electron-app 
         git checkout v1.1.1
+        mkdir bin
+        cp -p ../wagerr-3.0.1/bin/wagerrd ./bin
+        cp -p ../wagerr-3.0.1/bin/wagerr-cli ./bin
+        rm -rf ../wagerr-3.0.1*
         # build using npm
-        cp -pr ../app/bin .
-        chmod 755 bin/wagerrd
-        chmod 755 bin/wagerr-cli
         npm install
         npm run package
         mkdir $SNAPCRAFT_PART_INSTALL/app
         cd release
-        ls -la
         APPIMAGE=$(find . -name *i386*.AppImage)
         chmod a+x $APPIMAGE
         $APPIMAGE --appimage-extract
@@ -136,13 +141,16 @@ parts:
         #chmod 4755 $SNAPCRAFT_PART_INSTALL/app/chrome-sandbox
         $SNAPCRAFT_PART_INSTALL/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders > $SNAPCRAFT_PART_INSTALL/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/gdk-pixbuf-2.0/2.10.0/loaders.cache
       elif [ $HOST = "arm-linux-gnu" ]; then
+        wget https://github.com/wagerr/wagerr/releases/download/v3.0.1/wagerr-3.0.1-arm-linux-gnueabihf.tar.gz
+        tar -xf wagerr-3.0.1-arm-linux-gnueabihf.tar.gz
         git clone https://github.com/wagerr/wagerr-electron-app.git
         cd wagerr-electron-app 
         git checkout v1.1.1
+        mkdir bin
+        cp -p ../wagerr-3.0.1/bin/wagerrd ./bin
+        cp -p ../wagerr-3.0.1/bin/wagerr-cli ./bin
+        rm -rf ../wagerr-3.0.1*
         # build using npm
-        cp -pr ../app/bin .
-        chmod 755 bin/wagerrd
-        chmod 755 bin/wagerr-cli
         npm install
         npm run package
         mkdir $SNAPCRAFT_PART_INSTALL/app
@@ -155,13 +163,16 @@ parts:
         #chmod 4755 $SNAPCRAFT_PART_INSTALL/app/chrome-sandbox
         $SNAPCRAFT_PART_INSTALL/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders > $SNAPCRAFT_PART_INSTALL/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/gdk-pixbuf-2.0/2.10.0/loaders.cache
       elif [ $HOST = "aarch64-linux-gnu" ]; then
+        wget https://github.com/wagerr/wagerr/releases/download/v3.0.1/wagerr-3.0.1-aarch64-linux-gnu.tar.gz
+        tar -xf wagerr-3.0.1-aarch64-linux-gnu.tar.gz
         git clone https://github.com/wagerr/wagerr-electron-app.git
         cd wagerr-electron-app 
         git checkout v1.1.1
+        mkdir bin
+        cp -p ../wagerr-3.0.1/bin/wagerrd ./bin
+        cp -p ../wagerr-3.0.1/bin/wagerr-cli ./bin
+        rm -rf ../wagerr-3.0.1*
         # build using npm
-        cp -pr ../app/bin .
-        chmod 755 bin/wagerrd
-        chmod 755 bin/wagerr-cli
         npm install
         npm run package
         mkdir $SNAPCRAFT_PART_INSTALL/app

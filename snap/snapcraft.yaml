@@ -111,7 +111,7 @@ parts:
         npm run package
         mkdir $SNAPCRAFT_PART_INSTALL/app
         cd release
-        APPIMAGE=$(find . -name *x86_64*.AppImage)
+        APPIMAGE=$(find *x86_64*.AppImage)
         chmod a+x $APPIMAGE
         $APPIMAGE --appimage-extract
         mv ./squashfs-root/* $SNAPCRAFT_PART_INSTALL/app
@@ -133,7 +133,7 @@ parts:
         npm run package
         mkdir $SNAPCRAFT_PART_INSTALL/app
         cd release
-        APPIMAGE=$(find . -name *i386*.AppImage)
+        APPIMAGE=$(find *i386*.AppImage)
         chmod a+x $APPIMAGE
         $APPIMAGE --appimage-extract
         mv ./squashfs-root/* $SNAPCRAFT_PART_INSTALL/app
@@ -155,7 +155,7 @@ parts:
         npm run package
         mkdir $SNAPCRAFT_PART_INSTALL/app
         cd release
-        APPIMAGE=$(find . -name *arm*.AppImage)
+        APPIMAGE=$(find *armv7l*.AppImage)
         chmod a+x $APPIMAGE
         $APPIMAGE --appimage-extract
         mv ./squashfs-root/* $SNAPCRAFT_PART_INSTALL/app
@@ -177,7 +177,7 @@ parts:
         npm run package
         mkdir $SNAPCRAFT_PART_INSTALL/app
         cd release
-        APPIMAGE=$(find . -name *arm64*.AppImage)
+        APPIMAGE=$(find *arm64*.AppImage)
         chmod a+x $APPIMAGE
         $APPIMAGE --appimage-extract
         mv ./squashfs-root/* $SNAPCRAFT_PART_INSTALL/app

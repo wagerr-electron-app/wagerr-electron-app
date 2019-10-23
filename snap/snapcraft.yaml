@@ -113,7 +113,7 @@ parts:
         cd release
         APPIMAGE=$(find *x86_64*.AppImage)
         chmod a+x $APPIMAGE
-        $APPIMAGE --appimage-extract
+        ./$APPIMAGE --appimage-extract
         mv ./squashfs-root/* $SNAPCRAFT_PART_INSTALL/app
         find $SNAPCRAFT_PART_INSTALL/app/ -type d -exec chmod 755 {} \;
         #chmod 4755 $SNAPCRAFT_PART_INSTALL/app/chrome-sandbox
@@ -135,7 +135,7 @@ parts:
         cd release
         APPIMAGE=$(find *i386*.AppImage)
         chmod a+x $APPIMAGE
-        $APPIMAGE --appimage-extract
+        ./$APPIMAGE --appimage-extract
         mv ./squashfs-root/* $SNAPCRAFT_PART_INSTALL/app
         find $SNAPCRAFT_PART_INSTALL/app/ -type d -exec chmod 755 {} \;
         #chmod 4755 $SNAPCRAFT_PART_INSTALL/app/chrome-sandbox
@@ -157,7 +157,7 @@ parts:
         cd release
         APPIMAGE=$(find *armv7l*.AppImage)
         chmod a+x $APPIMAGE
-        $APPIMAGE --appimage-extract
+        ./$APPIMAGE --appimage-extract
         mv ./squashfs-root/* $SNAPCRAFT_PART_INSTALL/app
         find $SNAPCRAFT_PART_INSTALL/app/ -type d -exec chmod 755 {} \;
         #chmod 4755 $SNAPCRAFT_PART_INSTALL/app/chrome-sandbox
@@ -179,7 +179,7 @@ parts:
         cd release
         APPIMAGE=$(find *arm64*.AppImage)
         chmod a+x $APPIMAGE
-        $APPIMAGE --appimage-extract
+        ./$APPIMAGE --appimage-extract
         mv ./squashfs-root/* $SNAPCRAFT_PART_INSTALL/app
         find $SNAPCRAFT_PART_INSTALL/app/ -type d -exec chmod 755 {} \;
         #chmod 4755 $SNAPCRAFT_PART_INSTALL/app/chrome-sandbox

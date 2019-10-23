@@ -140,7 +140,7 @@ parts:
         find $SNAPCRAFT_PART_INSTALL/app/ -type d -exec chmod 755 {} \;
         #chmod 4755 $SNAPCRAFT_PART_INSTALL/app/chrome-sandbox
         $SNAPCRAFT_PART_INSTALL/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders > $SNAPCRAFT_PART_INSTALL/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/gdk-pixbuf-2.0/2.10.0/loaders.cache
-      elif [ $HOST = "arm-linux-gnu" ]; then
+      elif [ $HOST = "arm-linux-gnueabihf" ]; then
         wget https://github.com/wagerr/wagerr/releases/download/v3.0.1/wagerr-3.0.1-arm-linux-gnueabihf.tar.gz
         tar -xf wagerr-3.0.1-arm-linux-gnueabihf.tar.gz
         git clone https://github.com/wagerr/wagerr-electron-app.git
@@ -177,7 +177,7 @@ parts:
         npm run package
         mkdir $SNAPCRAFT_PART_INSTALL/app
         cd release
-        APPIMAGE=$(find . -name *aarch*.AppImage)
+        APPIMAGE=$(find . -name *arm64*.AppImage)
         chmod a+x $APPIMAGE
         $APPIMAGE --appimage-extract
         mv ./squashfs-root/* $SNAPCRAFT_PART_INSTALL/app

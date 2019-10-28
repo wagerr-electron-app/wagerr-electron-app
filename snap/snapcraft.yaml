@@ -87,7 +87,9 @@ layout:
 
 parts:
   wagerr-electron-app:
-    source: .
+    source: https://github.com/wagerr/wagerr-electron-app.git
+    source-type: git
+    source-tag: v1.1.1
     plugin: nil
 
     override-build: |
@@ -99,13 +101,10 @@ parts:
       if [ $HOST = "x86_64-linux-gnu" ]; then
         wget https://github.com/wagerr/wagerr/releases/download/v3.0.1/wagerr-3.0.1-x86_64-linux-gnu.tar.gz
         tar -xf wagerr-3.0.1-x86_64-linux-gnu.tar.gz
-        git clone https://github.com/wagerr/wagerr-electron-app.git 
-        cd wagerr-electron-app 
-        git checkout v1.1.1
         mkdir bin
-        cp -p ../wagerr-3.0.1/bin/wagerrd ./bin
-        cp -p ../wagerr-3.0.1/bin/wagerr-cli ./bin
-        rm -rf ../wagerr-3.0.1*
+        cp -p wagerr-3.0.1/bin/wagerrd ./bin
+        cp -p wagerr-3.0.1/bin/wagerr-cli ./bin
+        rm -rf wagerr-3.0.1*
         # build using npm
         npm install
         npm run package
@@ -122,12 +121,10 @@ parts:
         wget https://github.com/wagerr/wagerr/releases/download/v3.0.1/wagerr-3.0.1-i686-pc-linux-gnu.tar.gz
         tar -xf wagerr-3.0.1-i686-pc-linux-gnu.tar.gz
         git clone https://github.com/wagerr/wagerr-electron-app.git
-        cd wagerr-electron-app 
-        git checkout v1.1.1
         mkdir bin
-        cp -p ../wagerr-3.0.1/bin/wagerrd ./bin
-        cp -p ../wagerr-3.0.1/bin/wagerr-cli ./bin
-        rm -rf ../wagerr-3.0.1*
+        cp -p wagerr-3.0.1/bin/wagerrd ./bin
+        cp -p wagerr-3.0.1/bin/wagerr-cli ./bin
+        rm -rf wagerr-3.0.1*
         # build using npm
         npm install
         npm run package
@@ -143,13 +140,10 @@ parts:
       elif [ $HOST = "arm-linux-gnueabihf" ]; then
         wget https://github.com/wagerr/wagerr/releases/download/v3.0.1/wagerr-3.0.1-arm-linux-gnueabihf.tar.gz
         tar -xf wagerr-3.0.1-arm-linux-gnueabihf.tar.gz
-        git clone https://github.com/wagerr/wagerr-electron-app.git
-        cd wagerr-electron-app 
-        git checkout v1.1.1
         mkdir bin
-        cp -p ../wagerr-3.0.1/bin/wagerrd ./bin
-        cp -p ../wagerr-3.0.1/bin/wagerr-cli ./bin
-        rm -rf ../wagerr-3.0.1*
+        cp -p wagerr-3.0.1/bin/wagerrd ./bin
+        cp -p wagerr-3.0.1/bin/wagerr-cli ./bin
+        rm -rf wagerr-3.0.1*
         # build using npm
         npm install
         npm run package
@@ -165,13 +159,10 @@ parts:
       elif [ $HOST = "aarch64-linux-gnu" ]; then
         wget https://github.com/wagerr/wagerr/releases/download/v3.0.1/wagerr-3.0.1-aarch64-linux-gnu.tar.gz
         tar -xf wagerr-3.0.1-aarch64-linux-gnu.tar.gz
-        git clone https://github.com/wagerr/wagerr-electron-app.git
-        cd wagerr-electron-app 
-        git checkout v1.1.1
         mkdir bin
-        cp -p ../wagerr-3.0.1/bin/wagerrd ./bin
-        cp -p ../wagerr-3.0.1/bin/wagerr-cli ./bin
-        rm -rf ../wagerr-3.0.1*
+        cp -p wagerr-3.0.1/bin/wagerrd ./bin
+        cp -p wagerr-3.0.1/bin/wagerr-cli ./bin
+        rm -rf wagerr-3.0.1*
         # build using npm
         npm install
         npm run package

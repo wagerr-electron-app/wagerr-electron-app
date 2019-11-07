@@ -56,6 +56,14 @@ base: core18
 #    - $HOME/.config/wagerr-electron-app
 
 apps:
+  qt:
+    command: bin/wagerr-qt
+    plugs: [network, network-bind,  unity7, desktop, desktop-legacy, wayland, x11, opengl, home, gsettings, screen-inhibit-control, audio-playback, system-observe, browser-support, hardware-observe ]
+    desktop: wagerr-electron-app.desktop
+    environment:
+      QT_XKB_CONFIG_ROOT: $SNAP_USER_DATA:$SNAP/usr/share:$QT_XKB_CONFIG_ROOT
+      XDG_DATA_DIRS: $SNAP_USER_DATA:$SNAP/usr/share:$XDG_DATA_DIRS
+      LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/dri:$SNAP/usr/lib"
   electron:
     command: app/wagerr-electron-app --no-sandbox
     plugs: [network, network-bind,  unity7, desktop, desktop-legacy, wayland, x11, opengl, home, gsettings, screen-inhibit-control, audio-playback, system-observe, browser-support, hardware-observe ]
@@ -102,8 +110,7 @@ parts:
         wget https://github.com/wagerr/wagerr/releases/download/v3.1.0/wagerr-3.1.0-x86_64-linux-gnu.tar.gz
         tar -xf wagerr-3.1.0-x86_64-linux-gnu.tar.gz
         mkdir bin
-        cp -p wagerr-3.1.0/bin/wagerrd ./bin
-        cp -p wagerr-3.1.0/bin/wagerr-cli ./bin
+        cp -p wagerr-3.1.0/bin/* ./bin
         rm -rf wagerr-3.1.0*
         # build using npm
         npm install

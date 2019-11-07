@@ -57,7 +57,7 @@ base: core18
 
 apps:
   qt:
-    command: bin/wagerr-qt
+    command: wagerr-qt
     plugs: [network, network-bind,  unity7, desktop, desktop-legacy, wayland, x11, opengl, home, gsettings, screen-inhibit-control, audio-playback, system-observe, browser-support, hardware-observe ]
     desktop: wagerr-electron-app.desktop
     environment:
@@ -129,8 +129,7 @@ parts:
         tar -xf wagerr-3.1.0-i686-pc-linux-gnu.tar.gz
         git clone https://github.com/wagerr/wagerr-electron-app.git
         mkdir bin
-        cp -p wagerr-3.1.0/bin/wagerrd ./bin
-        cp -p wagerr-3.1.0/bin/wagerr-cli ./bin
+        cp -p wagerr-3.1.0/bin/* ./bin
         rm -rf wagerr-3.1.0*
         # build using npm
         npm install
@@ -148,8 +147,7 @@ parts:
         wget https://github.com/wagerr/wagerr/releases/download/v3.1.0/wagerr-3.1.0-arm-linux-gnueabihf.tar.gz
         tar -xf wagerr-3.1.0-arm-linux-gnueabihf.tar.gz
         mkdir bin
-        cp -p wagerr-3.1.0/bin/wagerrd ./bin
-        cp -p wagerr-3.1.0/bin/wagerr-cli ./bin
+        cp -p wagerr-3.1.0/bin/* ./bin
         rm -rf wagerr-3.1.0*
         # build using npm
         npm install
@@ -167,8 +165,7 @@ parts:
         wget https://github.com/wagerr/wagerr/releases/download/v3.1.0/wagerr-3.1.0-aarch64-linux-gnu.tar.gz
         tar -xf wagerr-3.1.0-aarch64-linux-gnu.tar.gz
         mkdir bin
-        cp -p wagerr-3.1.0/bin/wagerrd ./bin
-        cp -p wagerr-3.1.0/bin/wagerr-cli ./bin
+        cp -p wagerr-3.1.0/bin/* ./bin
         rm -rf wagerr-3.1.0*
         # build using npm
         npm install

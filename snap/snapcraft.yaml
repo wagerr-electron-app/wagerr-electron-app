@@ -1,5 +1,5 @@
 name: wagerr-electron-app
-version: '1.1.2'
+version: '3.1.0'
 
 summary:   wagerr, digital currency for decentralized betting
 description: |
@@ -49,21 +49,47 @@ confinement: strict
 grade: stable
 base: core18
 
-#plugs:
-#  config-wagerr:
-#    interface: personal-files
-#    write:
-#    - $HOME/.config/wagerr-electron-app
-
 apps:
+  daemon:
+    command: app/resources/bin/wagerrd
+    plugs: [network, network-bind, home, removable-media]
+    #desktop: wagerrd.desktop
+    environment:
+      XDG_DATA_DIRS: $SNAP_USER_DATA:$SNAP/usr/share:$XDG_DATA_DIRS
+  daemon-testnet:
+    command: app/resources/bin/wagerrd --testnet
+    plugs: [network, network-bind, home, removable-media]
+    #desktop: wagerrd_testnet.desktop
+    environment:
+      XDG_DATA_DIRS: $SNAP_USER_DATA:$SNAP/usr/share:$XDG_DATA_DIRS
+  daemon-regtest:
+    command: app/resources/bin/wagerrd --regtest
+    plugs: [network, network-bind, home, removable-media]
+    #desktop: wagerrd_regtest.desktop
+    environment:
+      XDG_DATA_DIRS: $SNAP_USER_DATA:$SNAP/usr/share:$XDG_DATA_DIRS
   qt:
-    command: wagerr-qt
+    command: app/resources/bin/wagerr-qt
     plugs: [network, network-bind,  unity7, desktop, desktop-legacy, wayland, x11, opengl, home, gsettings, screen-inhibit-control, audio-playback, system-observe, browser-support, hardware-observe ]
-    desktop: wagerr-electron-app.desktop
+    desktop: wagerr-qt.desktop
     environment:
       QT_XKB_CONFIG_ROOT: $SNAP_USER_DATA:$SNAP/usr/share:$QT_XKB_CONFIG_ROOT
       XDG_DATA_DIRS: $SNAP_USER_DATA:$SNAP/usr/share:$XDG_DATA_DIRS
       LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/dri:$SNAP/usr/lib"
+  qt-testnet:
+    command: app/resources/bin/wagerr-qt --testnet
+    plugs: [network, network-bind,  unity7, desktop, desktop-legacy, wayland, x11, opengl, home, gsettings, screen-inhibit-control, audio-playback, system-observe, browser-support, hardware-observe ]
+    desktop: wagerr-qt_testnet.desktop
+    environment:
+      QT_XKB_CONFIG_ROOT: $SNAP_USER_DATA:$SNAP/usr/share:$QT_XKB_CONFIG_ROOT
+      XDG_DATA_DIRS: $SNAP_USER_DATA:$SNAP/usr/share:$XDG_DATA_DIRS
+  qt-regtest:
+    command: app/resources/bin/wagerr-qt --regtest
+    plugs: [network, network-bind,  unity7, desktop, desktop-legacy, wayland, x11, opengl, home, gsettings, screen-inhibit-control, audio-playback, system-observe, browser-support, hardware-observe ]
+    desktop: wagerr-qt_regtest.desktop
+    environment:
+      QT_XKB_CONFIG_ROOT: $SNAP_USER_DATA:$SNAP/usr/share:$QT_XKB_CONFIG_ROOT
+      XDG_DATA_DIRS: $SNAP_USER_DATA:$SNAP/usr/share:$XDG_DATA_DIRS
   electron:
     command: app/wagerr-electron-app --no-sandbox
     plugs: [network, network-bind,  unity7, desktop, desktop-legacy, wayland, x11, opengl, home, gsettings, screen-inhibit-control, audio-playback, system-observe, browser-support, hardware-observe ]
@@ -88,6 +114,30 @@ apps:
       QT_XKB_CONFIG_ROOT: $SNAP_USER_DATA:$SNAP/usr/share:$QT_XKB_CONFIG_ROOT
       XDG_DATA_DIRS: $SNAP_USER_DATA:$SNAP/usr/share:$XDG_DATA_DIRS
       LD_LIBRARY_PATH: "$LD_LIBRARY_PATH:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/pulseaudio:$SNAP/usr/lib/$SNAPCRAFT_ARCH_TRIPLET/dri:$SNAP/usr/lib"
+  cli:
+    command: app/resources/bin/wagerr-cli
+    plugs: [network, network-bind, home, removable-media]
+    environment:
+      XDG_DATA_DIRS: $SNAP_USER_DATA:$SNAP/usr/share:$XDG_DATA_DIRS
+  cli-testnet:
+    command: app/resources/bin/wagerr-cli --testnet
+    plugs: [network, network-bind, home, removable-media]
+    environment:
+      XDG_DATA_DIRS: $SNAP_USER_DATA:$SNAP/usr/share:$XDG_DATA_DIRS
+  cli-regtest:
+    command: app/resources/bin/wagerr-cli --regtest
+    plugs: [network, network-bind, home, removable-media]
+    environment:
+      XDG_DATA_DIRS: $SNAP_USER_DATA:$SNAP/usr/share:$XDG_DATA_DIRS
+  tx:
+    command: app/resources/bin/wagerr-tx
+    plugs: [home]
+  test:
+    command: app/resources/bin/test_wagerr
+    plugs: [home]
+#  testqt:
+#    command: app/resources/bin/test_wagerr-qt
+#    plugs: [home]
 
 layout:
   /usr/lib/dri:
@@ -179,6 +229,8 @@ parts:
         find $SNAPCRAFT_PART_INSTALL/app/ -type d -exec chmod 755 {} \;
         #chmod 4755 $SNAPCRAFT_PART_INSTALL/app/chrome-sandbox
         $SNAPCRAFT_PART_INSTALL/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders > $SNAPCRAFT_PART_INSTALL/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/gdk-pixbuf-2.0/2.10.0/loaders.cache
+      else
+        echo "${HOST} unsupported"
       fi
 
     stage-packages:

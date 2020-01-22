@@ -251,6 +251,10 @@ parts:
       - libxss1
       - libasound2
       - libglu1-mesa
+      - libdbus-glib-1-2
+      - libdbusmenu-gtk4
+      - libdbusmenu-glib4
+      - libgtk2.0-0
 
     build-packages:
       - curl
@@ -274,10 +278,6 @@ parts:
       - npm
       - libgtk-3-dev
       - libgdk-pixbuf2.0-dev
-      - libdbus-glib-1-2
-      - libdbusmenu-gtk4
-      - libdbusmenu-glib4
-      - libgtk2.0-0
 
   desktop:
     source: snap/local/desktop

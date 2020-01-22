@@ -147,7 +147,7 @@ parts:
   wagerr-electron-app:
     source: https://github.com/wagerr/wagerr-electron-app.git
     source-type: git
-    source-tag: v1.2.1
+    source-tag: v1.2.0
     plugin: nil
 
     override-build: |

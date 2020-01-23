@@ -246,7 +246,6 @@ parts:
       - qtwayland5
       - ca-certificates
       - libnss3
-      - libgtk-3-0
       - libxtst6
       - libxss1
       - libasound2
@@ -276,7 +275,7 @@ parts:
       - help2man
       - doxygen
       - npm
-      - libgtk-3-dev
+      - libgtk2.0-dev
       - libgdk-pixbuf2.0-dev
 
   desktop:

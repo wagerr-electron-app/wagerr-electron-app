@@ -255,6 +255,8 @@ parts:
       - libdbusmenu-gtk4
       - libdbusmenu-glib4
       - libgtk2.0-0
+      - libgtk-3-dev
+      - libgtk2.0-dev
 
     build-packages:
       - curl

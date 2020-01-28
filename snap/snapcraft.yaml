@@ -153,6 +153,13 @@ parts:
     override-build: |
       #git apply $SNAPCRAFT_STAGE/X005-update.patch
       git apply ../../../project/snap/local/patches/X005-update.patch
+      if [ $SNAPCRAFT_ARCH_TRIPLET = "x86_64-linux-gnu" ]; then
+        curl -sL https://deb.nodesource.com/setup_10.x | bash -
+        sudo apt-get update
+        apt-get -y install nodejs
+      else
+        apt-get -y install npm nodejs
+      fi
       if [ $SNAPCRAFT_ARCH_TRIPLET = "i386-linux-gnu" ]; then
         HOST="i686-linux-gnu"
       else
@@ -280,7 +287,6 @@ parts:
       - help2man
       - doxygen
       - libgtk-3-dev
-      - npm
       - libgtk2.0-dev
       - libgdk-pixbuf2.0-dev
 

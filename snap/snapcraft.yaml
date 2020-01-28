@@ -151,6 +151,8 @@ parts:
     plugin: nil
 
     override-build: |
+      #git apply $SNAPCRAFT_STAGE/X005-update.patch
+      git apply $SNAPCRAFT_PART_BUILD/snap/local/patches/x005-update.patch
       if [ $SNAPCRAFT_ARCH_TRIPLET = "i386-linux-gnu" ]; then
         HOST="i686-linux-gnu"
       else

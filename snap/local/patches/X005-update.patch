@@ -1,0 +1,24 @@
+--- src/main/index.js.orig	2020-01-28 17:14:59.159207179 +0000
++++ src/main/index.js	2020-01-28 17:16:06.719207179 +0000
+@@ -201,14 +201,14 @@
+   }
+ 
+   // Check for updates only for the packaged app.
+-  if (process.env.NODE_ENV === 'production') {
+-    logger.info('Checking for an update');
+-    checkForUpdates();
+-  } else {
+-    logger.debug('Skipping update check when running in development mode');
++  //if (process.env.NODE_ENV === 'production') {
++  //  logger.info('Checking for an update');
++  //  checkForUpdates();
++  //} else {
++    logger.debug('Skipping update check when running in snap');
+     await init();
+-  }
+-});
++ // }
++//});
+ 
+ // Catch the 'window-all-closed' event and (right now) do nothing with it. If
+ // you do not subscribe to this event and all windows are closed, the default

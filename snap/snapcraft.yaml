@@ -152,7 +152,7 @@ parts:
 
     override-build: |
       #git apply $SNAPCRAFT_STAGE/X005-update.patch
-      git apply ../../../project/snap/local/patches/X005-update.patch
+      #git apply ../../../project/snap/local/patches/X005-update.patch
       if [ $SNAPCRAFT_ARCH_TRIPLET = "x86_64-linux-gnu" ]; then
         curl -sL https://deb.nodesource.com/setup_10.x | bash -
         sudo apt-get update

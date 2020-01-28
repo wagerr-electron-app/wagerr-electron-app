@@ -1,6 +1,6 @@
 --- a/src/main/index.js	2020-01-28 17:14:59.159207179 +0000
-+++ b/src/main/index.js	2020-01-28 17:16:06.719207179 +0000
-@@ -201,14 +201,14 @@
++++ b/src/main/index.js	2020-01-28 20:05:54.259207179 +0000
+@@ -201,13 +201,13 @@
    }
  
    // Check for updates only for the packaged app.
@@ -16,9 +16,7 @@
 +    logger.debug('Skipping update check when running in snap');
      await init();
 -  }
--});
 + // }
-+//});
+ });
  
  // Catch the 'window-all-closed' event and (right now) do nothing with it. If
- // you do not subscribe to this event and all windows are closed, the default

@@ -157,6 +157,10 @@ parts:
         curl -sL https://deb.nodesource.com/setup_10.x | bash -
         sudo apt-get update
         apt-get -y install nodejs
+      if [ $SNAPCRAFT_ARCH_TRIPLET = "i686-linux-gnu" ]; then
+        curl -sL https://deb.nodesource.com/setup_10.x | bash -
+        sudo apt-get update
+        apt-get -y install nodejs
       else
         apt-get -y install npm nodejs
       fi
@@ -165,82 +169,30 @@ parts:
       else
         HOST="${SNAPCRAFT_ARCH_TRIPLET}"
       fi
-      if [ $HOST = "x86_64-linux-gnu" ]; then
-        wget https://github.com/wagerr/wagerr/releases/download/v3.1.0/wagerr-3.1.0-x86_64-linux-gnu.tar.gz
-        tar -xf wagerr-3.1.0-x86_64-linux-gnu.tar.gz
-        mkdir bin
-        cp -p wagerr-3.1.0/bin/* ./bin
-        rm -rf wagerr-3.1.0*
-        # build using npm
-        npm install
-        npm run package
-        mkdir $SNAPCRAFT_PART_INSTALL/app
-        cd release
-        APPIMAGE=$(find *x86_64*.AppImage)
-        chmod a+x $APPIMAGE
-        ./$APPIMAGE --appimage-extract
-        mv ./squashfs-root/* $SNAPCRAFT_PART_INSTALL/app
-        find $SNAPCRAFT_PART_INSTALL/app/ -type d -exec chmod 755 {} \;
-        #chmod 4755 $SNAPCRAFT_PART_INSTALL/app/chrome-sandbox
-        $SNAPCRAFT_PART_INSTALL/usr/lib/${HOST}/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders > $SNAPCRAFT_PART_INSTALL/usr/lib/${HOST}/gdk-pixbuf-2.0/2.10.0/loaders.cache
-      elif [ $HOST = "i686-linux-gnu" ]; then
-        wget https://github.com/wagerr/wagerr/releases/download/v3.1.0/wagerr-3.1.0-i686-pc-linux-gnu.tar.gz
-        tar -xf wagerr-3.1.0-i686-pc-linux-gnu.tar.gz
-        git clone https://github.com/wagerr/wagerr-electron-app.git
-        mkdir bin
-        cp -p wagerr-3.1.0/bin/* ./bin
-        rm -rf wagerr-3.1.0*
-        # build using npm
-        npm install
-        npm run package
-        mkdir $SNAPCRAFT_PART_INSTALL/app
-        cd release
-        APPIMAGE=$(find *i386*.AppImage)
-        chmod a+x $APPIMAGE
-        ./$APPIMAGE --appimage-extract
-        mv ./squashfs-root/* $SNAPCRAFT_PART_INSTALL/app
-        find $SNAPCRAFT_PART_INSTALL/app/ -type d -exec chmod 755 {} \;
-        #chmod 4755 $SNAPCRAFT_PART_INSTALL/app/chrome-sandbox
-        $SNAPCRAFT_PART_INSTALL/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders > $SNAPCRAFT_PART_INSTALL/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/gdk-pixbuf-2.0/2.10.0/loaders.cache
-      elif [ $HOST = "arm-linux-gnueabihf" ]; then
-        wget https://github.com/wagerr/wagerr/releases/download/v3.1.0/wagerr-3.1.0-arm-linux-gnueabihf.tar.gz
-        tar -xf wagerr-3.1.0-arm-linux-gnueabihf.tar.gz
-        mkdir bin
-        cp -p wagerr-3.1.0/bin/* ./bin
-        rm -rf wagerr-3.1.0*
-        # build using npm
-        npm install
-        npm run package
-        mkdir $SNAPCRAFT_PART_INSTALL/app
-        cd release
-        APPIMAGE=$(find *armv7l*.AppImage)
-        chmod a+x $APPIMAGE
-        ./$APPIMAGE --appimage-extract
-        mv ./squashfs-root/* $SNAPCRAFT_PART_INSTALL/app
-        find $SNAPCRAFT_PART_INSTALL/app/ -type d -exec chmod 755 {} \;
-        #chmod 4755 $SNAPCRAFT_PART_INSTALL/app/chrome-sandbox
-        $SNAPCRAFT_PART_INSTALL/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders > $SNAPCRAFT_PART_INSTALL/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/gdk-pixbuf-2.0/2.10.0/loaders.cache
-      elif [ $HOST = "aarch64-linux-gnu" ]; then
-        wget https://github.com/wagerr/wagerr/releases/download/v3.1.0/wagerr-3.1.0-aarch64-linux-gnu.tar.gz
-        tar -xf wagerr-3.1.0-aarch64-linux-gnu.tar.gz
-        mkdir bin
-        cp -p wagerr-3.1.0/bin/* ./bin
-        rm -rf wagerr-3.1.0*
-        # build using npm
-        npm install
-        npm run package
-        mkdir $SNAPCRAFT_PART_INSTALL/app
-        cd release
-        APPIMAGE=$(find *arm64*.AppImage)
-        chmod a+x $APPIMAGE
-        ./$APPIMAGE --appimage-extract
-        mv ./squashfs-root/* $SNAPCRAFT_PART_INSTALL/app
-        find $SNAPCRAFT_PART_INSTALL/app/ -type d -exec chmod 755 {} \;
-        #chmod 4755 $SNAPCRAFT_PART_INSTALL/app/chrome-sandbox
-        $SNAPCRAFT_PART_INSTALL/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders > $SNAPCRAFT_PART_INSTALL/usr/lib/${SNAPCRAFT_ARCH_TRIPLET}/gdk-pixbuf-2.0/2.10.0/loaders.cache
-      else
-        echo "${HOST} unsupported"
-      fi
+      wget https://github.com/wagerr/wagerr/releases/download/v3.1.0/wagerr-3.1.0-${SNAPCRAFT_ARCH_TRIPLET}.tar.gz
+      tar -xf wagerr-3.1.0-i${SNAPCRAFT_ARCH_TRIPLET}.tar.gz
+      mkdir bin
+      cp -p wagerr-3.1.0/bin/* ./bin
+      rm -rf wagerr-3.1.0*
+      # build using npm
+      npm install
+      npm run package
+      mkdir $SNAPCRAFT_PART_INSTALL/app
+      cd release
+      HOSTSHORT=$(echo ${SNAPCRAFT_ARCH_TRIPLET} | awk -F  "-" '{print $1}')
+      case ${HOSTSHORT} in
+        x86_64)   APPIMAGE=$(find *${HOSTSHORT}*.AppImage);;
+        arm)      APPIMAGE=$(find *armv7l*.AppImage);;
+        aarch64)  APPIMAGE=$(find *arm64*.AppImage);;
+        i386)     APPIMAGE=$(find *i386*.AppImage);;
+        *)        echo "${HOST} unsupported";
+      esac
+      chmod a+x $APPIMAGE
+      ./$APPIMAGE --appimage-extract
+      mv ./squashfs-root/* $SNAPCRAFT_PART_INSTALL/app
+      find $SNAPCRAFT_PART_INSTALL/app/ -type d -exec chmod 755 {} \;
+      #chmod 4755 $SNAPCRAFT_PART_INSTALL/app/chrome-sandbox
+      $SNAPCRAFT_PART_INSTALL/usr/lib/${HOST}/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders > $SNAPCRAFT_PART_INSTALL/usr/lib/${HOST}/gdk-pixbuf-2.0/2.10.0/loaders.cache
 
     stage-packages:
       - libxkbcommon0
